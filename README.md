@@ -1,171 +1,142 @@
-# Real-Time Machine Learning Data Drift Detection & Automated Retraining System
+# 🚀 Real-Time ML System with Drift Detection and Weighted Retraining
 
-A complete end-to-end MLOps pipeline that continuously monitors incoming data for distribution drift, detects performance degradation using statistical techniques, and automatically retrains the model using recent data.
+A production-inspired MLOps project that simulates a real-time machine learning pipeline capable of detecting **data drift**, monitoring model performance, and automatically retraining the model when significant drift is detected.
 
-The system simulates a production ML environment with real-time data streaming, model inference, drift monitoring, automated retraining, and an interactive dashboard.
+The system generates synthetic streaming data, performs real-time inference using an **XGBoost** model, monitors statistical drift using **KL Divergence** and **Entropy**, and retrains the model with **weighted updates** that prioritize recent data. An interactive **Streamlit** dashboard provides live visualization of predictions, drift metrics, and model performance.
 
 ---
 
-## 📌 Features
+## ✨ Features
 
-- 📊 Real-time data drift detection
-- 📈 Statistical drift analysis using:
+- 📊 Real-time synthetic data generation
+- 🤖 XGBoost-based machine learning model
+- 📈 Data drift detection using:
   - KL Divergence
   - Entropy
-- 🤖 Automated model retraining when drift exceeds threshold
-- ⚖️ Weighted retraining giving higher importance to recent data
-- ⚡ Real-time model inference
-- 📉 Live monitoring dashboard built with Streamlit
-- 📋 Model performance tracking over time
-- 📦 End-to-end ML pipeline from data ingestion to deployment
+- 🔄 Automatic model retraining when drift exceeds a threshold
+- ⚖️ Weighted retraining to prioritize recent observations
+- 📉 Interactive Streamlit dashboard
+- 📋 Real-time monitoring of model accuracy and drift metrics
+- 🚀 End-to-end ML pipeline simulation
 
 ---
 
-# System Architecture
+## 🏗️ System Workflow
 
 ```
-                  Incoming Data Stream
-                           │
-                           ▼
-                  Data Preprocessing
-                           │
-                           ▼
-                    Model Inference
-                           │
-          ┌────────────────┴────────────────┐
-          ▼                                 ▼
- Prediction Output                Drift Detection
-                                          │
-                     ┌────────────────────┴──────────────────┐
-                     ▼                                       ▼
-               No Drift                           Drift Detected
-                     │                                       │
-                     ▼                                       ▼
-             Continue Serving                Automatic Retraining
-                                                     │
-                                                     ▼
-                                            Updated ML Model
-                                                     │
-                                                     ▼
-                                             Performance Dashboard
+Synthetic Data Generation
+            │
+            ▼
+     Data Preprocessing
+            │
+            ▼
+      Model Inference
+            │
+      ┌─────┴─────┐
+      ▼           ▼
+ Predictions   Drift Detection
+                   │
+        ┌──────────┴──────────┐
+        ▼                     ▼
+   No Significant Drift   Drift Detected
+        │                     │
+        ▼                     ▼
+ Continue Monitoring   Automatic Retraining
+                              │
+                              ▼
+                     Updated XGBoost Model
+                              │
+                              ▼
+                    Performance Dashboard
 ```
 
 ---
 
-# Tech Stack
+## 🛠️ Tech Stack
 
-| Component | Technology |
-|------------|------------|
+| Category | Technology |
+|----------|------------|
 | Language | Python |
-| Machine Learning | XGBoost |
+| ML Model | XGBoost |
 | Dashboard | Streamlit |
-| Data Processing | Pandas, NumPy |
-| Visualization | Matplotlib, Plotly |
+| Data Processing | NumPy, Pandas |
+| Visualization | Plotly, Matplotlib |
 | Statistics | SciPy |
-| Model Monitoring | Custom Drift Detection |
-| Version Control | Git |
+| Machine Learning | Scikit-learn |
 
 ---
 
-# Drift Detection
+## 📊 Drift Detection
 
-The system continuously compares the incoming production data with the training distribution.
+The system continuously compares incoming streaming data with the reference training distribution using statistical metrics.
 
-## Metrics Used
+### Metrics Used
 
-### 1. KL Divergence
+- **KL Divergence** – Measures the difference between two probability distributions.
+- **Entropy** – Quantifies uncertainty in the incoming data distribution.
 
-Measures how one probability distribution differs from another.
-
-Higher KL divergence indicates greater drift.
-
-\[
-D_{KL}(P||Q)=\sum P(x)\log\frac{P(x)}{Q(x)}
-\]
+If the drift score exceeds a predefined threshold, the retraining pipeline is automatically triggered.
 
 ---
 
-### 2. Entropy
+## 🔄 Automated Retraining
 
-Measures uncertainty in the incoming data distribution.
+When drift is detected:
 
-Higher entropy often indicates increased randomness or changes in feature distributions.
-
----
-
-# Automated Retraining
-
-Whenever drift exceeds a predefined threshold:
-
-1. New data is collected.
-2. Recent samples receive larger weights.
-3. XGBoost model is retrained.
-4. Updated model replaces the previous version.
-5. Dashboard reflects new model metrics.
-
-Weighted retraining helps the model adapt faster to changing environments while retaining historical knowledge.
+1. Recent streaming samples are collected.
+2. Higher weights are assigned to recent observations.
+3. The XGBoost model is retrained.
+4. The updated model replaces the previous one.
+5. Dashboard metrics are refreshed automatically.
 
 ---
 
-# Dashboard
+## 📈 Dashboard
 
 The Streamlit dashboard provides:
 
 - Real-time predictions
-- Drift score visualization
-- KL Divergence trends
+- KL Divergence trend
 - Entropy monitoring
+- Drift alerts
 - Model accuracy
-- Retraining history
-- Performance metrics
-- Incoming data statistics
+- Retraining status
+- Live performance metrics
 
 ---
 
-# Project Structure
+## 🎲 Synthetic Data
+
+This project does **not** rely on an external dataset.
+
+Instead, synthetic streaming data is generated using Python's random number generation utilities to simulate changing data distributions and concept drift. This enables testing of real-world monitoring and retraining workflows without requiring a production dataset.
+
+---
+
+## 📂 Project Structure
 
 ```
-├── data/
-│   ├── train.csv
-│   ├── incoming_stream.csv
+Real-Time-ML-System-with-Drift-Detection-and-Weighted-Retraining/
 │
-├── models/
-│   ├── model.pkl
-│
-├── drift/
-│   ├── drift_detector.py
-│   ├── metrics.py
-│
-├── retraining/
-│   ├── retrain.py
-│
-├── streaming/
-│   ├── stream_data.py
-│
-├── dashboard/
-│   ├── app.py
-│
-├── utils/
-│
-├── requirements.txt
-│
+├── app.py
 ├── README.md
-│
-└── main.py
+├── requirements.txt
+└── .gitignore
 ```
 
 ---
 
-# Installation
+## 🚀 Installation
 
-Clone the repository
+Clone the repository:
 
 ```bash
-git clone https://github.com/Pheonix-1002/Real-Time-ML-System-with-Drift-Detection-and-Weighted-Retraining.git
+git clone https://github.com/<your-username>/Real-Time-ML-System-with-Drift-Detection-and-Weighted-Retraining.git
+
 cd Real-Time-ML-System-with-Drift-Detection-and-Weighted-Retraining
 ```
 
-Install dependencies
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -173,79 +144,28 @@ pip install -r requirements.txt
 
 ---
 
-# Run the Project
-
-Start the pipeline
+## ▶️ Run the Application
 
 ```bash
-python main.py
-```
-
-Launch the dashboard
-
-```bash
-streamlit run dashboard/app.py
+streamlit run app.py
 ```
 
 ---
 
-# Workflow
+## 📌 Future Improvements
 
-1. Train initial model.
-2. Stream incoming data.
-3. Perform predictions.
-4. Compute KL divergence and entropy.
-5. Detect drift.
-6. Trigger retraining if threshold is crossed.
-7. Update deployed model.
-8. Display metrics on dashboard.
-
----
-
-# Example Use Cases
-
-- Fraud Detection
-- Predictive Maintenance
-- Customer Churn Prediction
-- Credit Risk Monitoring
-- Healthcare Diagnosis Models
-- Recommendation Systems
-- IoT Sensor Monitoring
-- Financial Forecasting
-
----
-
-# Future Improvements
-
-- Docker deployment
-- Kubernetes support
-- MLflow integration
+- Docker containerization
+- Kafka-based real-time streaming
+- MLflow experiment tracking
 - Prometheus & Grafana monitoring
-- Kafka data streaming
-- Airflow pipeline orchestration
-- SHAP explainability
-- CI/CD integration using GitHub Actions
+- Airflow workflow orchestration
+- Model versioning
+- Cloud deployment (AWS/GCP/Azure)
 
 ---
 
-# Results
-
-- Continuous monitoring of production data
-- Automatic drift detection
-- Adaptive model retraining
-- Reduced model degradation over time
-- Interactive visualization of model health and drift statistics
-
----
-
-# License
-
-This project is licensed under the MIT License.
-
----
-
-# Author
+## 👨‍💻 Author
 
 **Deepanshu Sharma**
 
-If you found this project useful, feel free to ⭐ the repository!
+If you found this project useful, consider giving it a ⭐ on GitHub.
