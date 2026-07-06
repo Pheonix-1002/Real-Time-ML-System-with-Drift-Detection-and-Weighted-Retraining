@@ -161,9 +161,8 @@ The Streamlit dashboard provides:
 Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/data-drift-monitor.git
-
-cd data-drift-monitor
+git clone https://github.com/<Pheonix-1002>/Real-Time-ML-System-with-Drift-Detection-and-Weighted-Retraining.git
+cd Real-Time-ML-System-with-Drift-Detection-and-Weighted-Retraining
 ```
 
 Install dependencies
